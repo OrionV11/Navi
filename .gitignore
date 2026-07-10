@@ -1,2 +1,4 @@
 .env
 myenv
+.pyc
+__pycahce__

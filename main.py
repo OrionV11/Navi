@@ -1,53 +1,54 @@
-import os
 import sys
+import os
 import ollama
 import json
 
-# Add src to path if not already there
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-
-from tools import set_reminder
-from datetime import datetime
+from tools import set_reminder, scheduler, speak_text
 
 def parse_intent(text: str) -> dict:
-    """Sends text to Navi model and expects strict JSON."""
     try:
         response = ollama.chat(model='navi', messages=[{'role': 'user', 'content': text}])
         content = response['message']['content'].strip()
-        # Clean markdown if present
         content = content.replace('```json', '').replace('```', '').strip()
         return json.loads(content)
     except Exception as e:
         print(f"Parse Error: {e}")
-        return {"task": "Error parsing request", "delay_seconds": 0}
+        return {"type": "chat", "message": "I encountered an error parsing your request."}
 
 def main():
     print("Navi Agent Initialized.")
-    print("Try: 'Remind me to stretch in 10 seconds'")
+    print("Type 'quit' to exit.")
     
     try:
         while True:
             user_input = input("\nYou: ").strip()
-            
-            if not user_input:
-                continue
-            if user_input.lower() in ['quit', 'exit', 'q']:
-                print("Navi: Farewell, Nushi.")
+            if not user_input or user_input.lower() in ['quit', 'exit', 'q']:
                 break
 
-            # 1. Parse Intent
             data = parse_intent(user_input)
-            
-            # 2. Execute Tool
-            if 'task' in data and 'delay_seconds' in data:
-                confirmation = set_reminder(data['task'], data['delay_seconds'])
+            intent_type = data.get("type")
+
+            if intent_type == "reminder":
+                # Only schedule if it's explicitly a reminder
+                task = data.get("task", "Unknown Task")
+                delay = data.get("delay_seconds", 10)
+                confirmation = set_reminder(task, delay)
                 print(f"Navi: {confirmation}")
+                speak_text(confirmation)
+                
+            elif intent_type == "chat":
+                # Just chat back
+                message = data.get("message", "...")
+                print(f"Navi: {message}")
+                speak_text(message)
+                
             else:
-                print(" Navi: I couldn't understand the time or task.")
+                print("Navi: I didn't quite catch that.")
 
     except KeyboardInterrupt:
-        print(" Interrupted by user.")
+        print("\nShutting down...")
+        scheduler.shutdown(wait=False)
 
 if __name__ == '__main__':
     main()   
-
