@@ -3,10 +3,8 @@ import json
 from memory import memory
 
 
-
 def parse_and_response(user_input: str) -> str:
     context = memory.get_context()
-
 
     full_prompt = f"""
     You are Navi. Use the following context to answer personally.
