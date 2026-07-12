@@ -16,6 +16,7 @@ from memory import memory
 
 load_dotenv()
 MORGEN_API_KEY = os.getenv('MORGEN_API_KEY')
+BRAVE_API_KEY = os.getenv('BRAVE_API_KEY')
 TIMEZONE = os.getenv('TIMEZONE', 'UTC')
 
 # Configure logging to suppress noisy APScheduler logs
@@ -333,8 +334,39 @@ def get_system_status():
     return format
 
 
-def search_web():
-    pass
+def search_web(task: str, api_key: str):
+    #Query
+    url = "https://api.search.brave.com/res/v1/web/search"
+
+
+    headers = {
+        "Accept": "application/json",
+        "Accept-Encoding": "gzip",
+        "X-Subscription-Token": api_key
+    }
+
+    params = {
+        "q": {task},
+        "count": 5
+    }
+
+    try:
+        response = requests.get(url, params=params, headers=headers)
+        response.raise_for_status()
+
+
+        data = response.json()
+
+        if 'web' in data and 'results' in data['web']:
+            for result in data['web']['results']:
+                print(f"Title: {result.get('title')}")
+                print(f"URL: {result.get('url')}")
+                print("-" * 40)
+        else:
+            print("No results found.")
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+
 
 def wake_up():
     pass

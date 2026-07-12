@@ -15,6 +15,7 @@ cuda-pathfinder==1.5.6
 cuda-toolkit==13.0.3.0
 decorator==5.3.1
 dotenv==0.9.9
+elevenlabs==2.57.0
 executing==2.2.1
 filelock==3.29.7
 fsspec==2026.6.0
@@ -71,6 +72,7 @@ Pygments==2.20.0
 PyJWT==2.13.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.2
+pyttsx3==2.99
 PyYAML==6.0.3
 regex==2026.6.28
 requests==2.34.2
@@ -95,4 +97,5 @@ tzdata==2026.3
 tzlocal==5.4.4
 urllib3==2.7.0
 wcwidth==0.8.2
+websockets==16.1
 widgetsnbextension==4.0.15

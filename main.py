@@ -2,9 +2,13 @@ import sys
 import os
 import ollama
 import json
-
+from dotenv import load_dotenv
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-from tools import set_reminder, scheduler, speak_text
+from tools import set_reminder, scheduler, speak_text, search_web
+
+load_dotenv()
+BRAVE_API_KEY = os.getenv('BRAVE_API_KEY')
+
 
 def parse_intent(text: str) -> dict:
     try:
@@ -42,6 +46,13 @@ def main():
                 message = data.get("message", "...")
                 print(f"Navi: {message}")
                 speak_text(message)
+
+            elif intent_type == "search":
+                #Search the web
+                search = data.get("task", "...")
+                print(f"Navi: {search}")
+                search_web(search, BRAVE_API_KEY)
+
                 
             else:
                 print("Navi: I didn't quite catch that.")
