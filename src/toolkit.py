@@ -10,6 +10,8 @@ import logging
 import psutil
 import requests
 import os
+import pyttsx3
+import time
 from dotenv import load_dotenv
 from memory import memory
 
@@ -23,6 +25,7 @@ TIMEZONE = os.getenv('TIMEZONE', 'UTC')
 logging.basicConfig()
 logging.getLogger('apscheduler').setLevel(logging.ERROR)
 
+engine = pyttsx3.init()
 
 
 
@@ -334,47 +337,6 @@ def get_system_status():
     return format
 
 
-def search_web(task: str, api_key: str):
-    #Query
-    url = "https://api.search.brave.com/res/v1/web/search"
-
-
-    headers = {
-        "Accept": "application/json",
-        "Accept-Encoding": "gzip",
-        "X-Subscription-Token": api_key
-    }
-
-    params = {
-        "q": {task},
-        "count": 5
-    }
-
-    try:
-        response = requests.get(url, params=params, headers=headers)
-        response.raise_for_status()
-
-
-        data = response.json()
-
-        if 'web' in data and 'results' in data['web']:
-            for result in data['web']['results']:
-                print(f"Title: {result.get('title')}")
-                print(f"URL: {result.get('url')}")
-                print("-" * 40)
-        else:
-            print("No results found.")
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
-
-
-def wake_up():
-    pass
 
 def subscriptsion():
     pass
-
-
-def speak_text(text: str):
-    # Placeholder for TTS
-    pass   

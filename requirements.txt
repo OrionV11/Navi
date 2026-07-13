@@ -4,6 +4,7 @@ annotated-types==0.7.0
 anyio==4.14.1
 APScheduler==3.11.3
 asttokens==3.0.1
+beautifulsoup4==4.15.0
 certifi==2026.6.17
 cffi==2.1.0
 charset-normalizer==3.4.9
@@ -17,6 +18,7 @@ decorator==5.3.1
 dotenv==0.9.9
 elevenlabs==2.57.0
 executing==2.2.1
+feedparser==6.0.12
 filelock==3.29.7
 fsspec==2026.6.0
 greenlet==3.5.3
@@ -33,6 +35,7 @@ ipywidgets==8.1.8
 jedi==0.20.0
 Jinja2==3.1.6
 jupyterlab_widgets==3.0.16
+lxml==6.1.1
 markdown-it-py==4.2.0
 MarkupSafe==3.0.3
 matplotlib-inline==0.2.2
@@ -79,8 +82,10 @@ requests==2.34.2
 rich==15.0.0
 safetensors==0.8.0
 setuptools==83.0.0
+sgmllib3k==1.0.0
 shellingham==1.5.4
 six==1.17.0
+soupsieve==2.8.4
 SQLAlchemy==2.0.51
 stack-data==0.6.3
 sympy==1.14.0

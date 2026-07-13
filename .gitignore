@@ -1,5 +1,8 @@
 .env
 myenv
-.pyc
-__pycahce__
-sqlite
+*.pyc
+__pycahce__/
+*.sqlite
+*.mp3
+*.json
+jobs.sqlite
