@@ -1,6 +1,7 @@
 from elevenlabs.client import ElevenLabs
 import os
 import time
+import subprocess
 from dotenv import load_dotenv
 
 # Load API key from .env
@@ -17,6 +18,47 @@ VOICE_IDS = {
 }
 
 
+def find_audio_player():
+    """Find available audio player on the system"""
+    players = ["mpv", "ffplay", "paplay", "aplay"]
+    
+    for player in players:
+        result = subprocess.run(["which", player], capture_output=True)
+        if result.returncode == 0:
+            return player
+    
+    return None
+
+
+def play_audio_file(filepath: str):
+    """Play audio file using available player"""
+    player = find_audio_player()
+    
+    if not player:
+        print("No audio player found. Install: pacman -S mpv")
+        return False
+    
+    try:
+        if player == "mpv":
+            subprocess.run(
+                ["mpv", "--no-video", "--really-quiet", filepath],
+                check=True
+            )
+        elif player == "ffplay":
+            subprocess.run(
+                ["ffplay", "-nodisp", "-autoexit", "-loglevel", "quiet", filepath],
+                check=True
+            )
+        elif player == "paplay":
+            subprocess.run(["paplay", filepath], check=True)
+        elif player == "aplay":
+            subprocess.run(["aplay", filepath], check=True)
+        
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+
 def wake_up():
     """Activate the assistant with a greeting"""
     print("Assistant waking up...")
@@ -26,27 +68,24 @@ def wake_up():
 
 def speak_text(text: str, voice_name: str = "elariel"):
     """Convert text to speech and play it"""
-    print(f"Speaking: {text}")
 
     try:
-        # Get voice ID from dictionary
         voice_id = VOICE_IDS.get(voice_name, VOICE_IDS["elariel"])
         
-        # Convert text to speech using newer model
         audio = client.text_to_speech.convert(
             text=text,
             voice_id=voice_id,
             model_id="eleven_turbo_v2_5"
         )
         
-        # Save audio to file
         with open("temp.mp3", "wb") as f:
             for chunk in audio:
                 f.write(chunk)
         
-        # Play audio
-        os.system("aplay temp.mp3 2>/dev/null")
-        print("Done")
+        if play_audio_file("temp.mp3"):
+            print("Done")
+        else:
+            print("Warning: Audio created but playback failed")
         
     except Exception as e:
         print(f"Error: {e}")
@@ -64,6 +103,12 @@ def set_voice(voice_name: str):
 
 # Example usage
 if __name__ == "__main__":
+    player = find_audio_player()
+    if player:
+        print(f"Using: {player}\n")
+    else:
+        print("No audio player found!\n")
+    
     # Wake up and test
     wake_up()
     
