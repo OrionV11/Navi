@@ -5,7 +5,7 @@ import json
 from dotenv import load_dotenv
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 from text_speech import speak_text
-from toolkit import scheduler
+from tools.toolkit import scheduler
 from tools import get_searcher, get_reminder_manager, get_personal_assistant
 from intent_parser import parse_intent
 load_dotenv()

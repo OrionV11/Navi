@@ -83,7 +83,7 @@ def speak_text(text: str, voice_name: str = "elariel"):
                 f.write(chunk)
         
         if play_audio_file("temp.mp3"):
-            print("Done")
+            print("-" * 40)
         else:
             print("Warning: Audio created but playback failed")
         

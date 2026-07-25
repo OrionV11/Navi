@@ -1,6 +1,6 @@
 import ollama
 import json
-from memory import memory
+from navi_agent.tools.memory import memory
 
 
 def parse_and_response(user_input: str) -> str:

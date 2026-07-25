@@ -13,7 +13,7 @@ import os
 import pyttsx3
 import time
 from dotenv import load_dotenv
-from memory import memory
+from tools.memory import memory
 
 
 load_dotenv()
