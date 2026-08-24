@@ -1,0 +1,8 @@
+
+
+if item.priority = item.priority:
+    random.sample(
+
+    Random tie breaker key
+
+    heapq.heapush(self.priority_queue, (priority, random.random(), name, duration)

@@ -1,0 +1,41 @@
+Dict Keys:
+dict_keys(['status', 'request_id', 'parameters', 'data'])
+
+
+Full Response (pretty-printed):
+{
+  "status": "OK",
+  "request_id": "7021c145-c550-491b-aef8-4dc64e46f8fa",
+  "parameters": {
+    "query": "python developer",
+    "num_pages": 1,
+    "country": "us",
+    "language": "en",
+    "location": "San Francisco"
+  },
+  "data": {
+    "jobs": [
+      {
+        "job_id": "M2NZbGYzYUswV2xmVk1obEFBQUFBQT09OkVzd0JDb3dCUVVwcFZEUjBTVGhHWmtWR1RrWk9VMnBIYWtwYVpHeEJialYxU21WeFEyaDZkbkJIT0d4WVoxWjFRbGhTZVZGYUxVUXdRelo2Y1U1QmEySkNSelJsVVZZMmNrcEpiVkZqZFVKc2NGUjBjR0V0VlhsdFZtMVFkbTF2VFZGM1FqUlphRlV5VjJGZmRtZGhVa2x3TUZsQ2QwdFVTRGQ1UlRKRldHTjRPVFJCZEU0dGNXMXRiVkYwVkdkM1MwRVNGMlZEZVV4aGIzcFNUMkUyTm5GMGMxQXlXVEp4TFZGUkdpSkJSSE55T1daVWFtaGFTR1UwUW5WRlQwVmhjWHByTUY5VU5VMVFiVFZXYUU1Ug",
+        "job_title": "Python Developer",
+        "employer_name": "Nitor Infotech",
+        "employer_logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5i60g_KXD3a4a-uRAdSszufHvKBOGxmYM16Nc&s=0",
+        "employer_website": "https://www.nitorinfotech.com",
+        "job_publisher": "Indeed",
+        "job_employment_type": "Full-time",
+        "job_employment_types": [
+          "FULLTIME"
+        ],
+        "job_apply_link": "https://www.indeed.com/viewjob?jk=a3f5187b73bdf25b",
+        "job_apply_is_direct": false,
+        "apply_options": [
+          {
+            "apply_link": "https://www.indeed.com/viewjob?jk=a3f5187b73bdf25b",
+            "is_direct": false,
+            "publisher": "Indeed"
+          }
+        ],
+        "job_description": "Company Description\n\nWe at Nitor Infotech a 
+
+
+completed

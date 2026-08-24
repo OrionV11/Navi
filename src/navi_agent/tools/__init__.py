@@ -1,38 +1,51 @@
-from .anime_search import AnimeSearcher
-from .manga_search import MangaSearcher
+"""Tools package for Navi agent."""
+
+from typing import Optional
 from .web_search import WebSearcher
 from .reminders import ReminderManager
 from .personal_assistant import PersonalAssistantManager
-import os
-from dotenv import load_dotenv
-load_dotenv()
-
-BRAVE_API_KEY = os.getenv('BRAVE_API_KEY')
-
-# Initialize searchers
-anime_searcher = AnimeSearcher()
-manga_searcher = MangaSearcher()
-web_searcher = WebSearcher(api_key=BRAVE_API_KEY)
 
 
-reminder_manager = ReminderManager()
-MORGEN_KEY = os.getenv('MORGEN_API_KEY')
-personal_assistant = PersonalAssistantManager(morgen_key=MORGEN_KEY)
+def get_searcher(api_key: Optional[str] = None) -> WebSearcher:
+    """
+    Factory function to get a WebSearcher instance.
+    
+    Args:
+        api_key: Brave Search API key
+        
+    Returns:
+        WebSearcher instance
+    """
+    if not api_key:
+        raise ValueError("Brave API key is required for WebSearcher")
+    return WebSearcher(api_key)
 
 
+def get_reminder_manager() -> ReminderManager:
+    """
+    Factory function to get a ReminderManager instance.
+    
+    Returns:
+        ReminderManager instance
+    """
+    return ReminderManager()
 
-SEARCHERS = {
-    "anime": anime_searcher,
-    "manga": manga_searcher,
-    "web": web_searcher
-}
 
-def get_searcher(search_type: str):
-    """Get the right searcher"""
-    return SEARCHERS.get(search_type.lower())
+def get_personal_assistant(name: str = "Navi") -> PersonalAssistant:
+    """
+    Factory function to get a PersonalAssistant instance.
+    
+    Args:
+        name: Name for the assistant
+        
+    Returns:
+        PersonalAssistant instance
+    """
+    return PersonalAssistantManager(name)
 
-def get_reminder_manager():
-    return reminder_manager
 
-def get_personal_assistant():
-    return personal_assistant
+__all__ = [
+    'get_searcher',
+    'get_reminder_manager',
+    'get_personal_assistant'
+]
